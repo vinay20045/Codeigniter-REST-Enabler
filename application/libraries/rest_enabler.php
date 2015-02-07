@@ -92,10 +92,14 @@ class Rest_enabler{
      * This is the function you should use to respond to incoming requests.
      * You need to worry about this function if your application is acting as a REST server.
     */
-    public function respond($response = array('Nothing to show'), $format = 'json'){
+    public function respond($response = array('Nothing to show'), $status = 200, $format = 'json'){
         // My application needed only JSON support. You can use $format and extend support for XML etc.
         header('Content-Type: application/json');
-        echo json_encode($response);
+        $message_body = array(
+            "status" => $status,
+            "response" => $response
+        );
+        echo json_encode($message_body);
         // I'm specifically using this as I do not want control transferred back to application.
         exit(0);
     }
